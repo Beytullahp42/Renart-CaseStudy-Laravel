@@ -14,7 +14,7 @@
     <p class="lead">This is the backend with API endpoints.</p>
     <p class="mt-4 text-muted">
         To check out the <strong>React Frontend</strong>, visit
-        <a href="https://beytullahpaytar.xyz" class="link-primary">google.com</a>
+        <a href="https://renart-case-study-react.vercel.app/" class="link-primary">https://renart-case-study-react.vercel.app/</a>
     </p>
 </div>
 
