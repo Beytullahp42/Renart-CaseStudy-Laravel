@@ -14,5 +14,3 @@ Route::get('/gold-price', [App\Http\Controllers\ProductController::class, 'getGo
 
 Route::post('/products', [App\Http\Controllers\ProductController::class, 'filterProducts'])
     ->name('products');
-
-//ftp note
