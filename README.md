@@ -36,5 +36,5 @@ This is the backend application for a full-stack web case study built as part of
 ## 🔗 Links
 
 - 📦 **Front End Repository:** https://github.com/Beytullahp42/Renart-CaseStudy-React
-- 🌐 **Live Back End API:** https://beytullahpaytar.online/
+- 🌐 **Live Back End API:** https://renart-case-study-beytp.onrender.com/
 - 🌐 **Live Front End:** https://renart-case-study-react.vercel.app/
