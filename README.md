@@ -1,5 +1,3 @@
-> **Note:** The hosted Back End API is available until **December 11, 2025**. After that date, the endpoint may be taken down or replaced.
-
 # Ring Product List Backend (Laravel)
 
 This is the backend application for a full-stack web case study built as part of my internship application for [Renart](https://www.renartglobal.com/). It reads product data from a local JSON file, fetches real-time gold gram prices via [MetalPriceAPI](https://metalpriceapi.com/), and exposes endpoints for listing and filtering products.
@@ -36,5 +34,5 @@ This is the backend application for a full-stack web case study built as part of
 ## 🔗 Links
 
 - 📦 **Front End Repository:** https://github.com/Beytullahp42/Renart-CaseStudy-React
-- 🌐 **Live Back End API:** https://renart-case-study-beytp.onrender.com/
-- 🌐 **Live Front End:** https://renart-case-study-react.vercel.app/
+- 🌐 **Live Back End API:** https://renart-cs-laravel.beytullahp.com
+- 🌐 **Live Front End:** https://renart-cs.beytullahp.com
