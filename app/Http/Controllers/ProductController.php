@@ -51,20 +51,30 @@ class ProductController extends Controller
 
     public function getGoldPrice(): float
     {
-        return Cache::remember('gold_price', now()->addHour(), function () {
-            $response = Http::get('https://api.metalpriceapi.com/v1/latest', [
-                'api_key' => env('GOLD_API_KEY'),
-                'base' => 'USD',
-                'currencies' => 'XAU',
-            ]);
+    return Cache::remember('gold_price', now()->addHour(), function () {
+        $response = Http::get('https://api.metalpriceapi.com/v1/latest', [
+            'api_key' => config('services.gold_api.key'), // Use config(), not env()
+            'base' => 'USD',
+            'currencies' => 'XAU',
+        ]);
 
-            if (!$response->ok()) {
-                throw new Exception('Failed to fetch gold price');
-            }
+        $data = $response->json();
 
-            return $response->json()['rates']['USDXAU'] / 31.1034768;
-        });
-    }
+        // CHECK "SUCCESS" FIRST
+        // Your JSON has "success": true. Use it.
+        if (isset($data['success']) && !$data['success']) {
+             // Log the actual error message from the API to see what's wrong
+            \Illuminate\Support\Facades\Log::error('Gold API Error', $data);
+            throw new Exception('Gold API returned error: ' . ($data['error']['type'] ?? 'Unknown error'));
+        }
+
+        if (!isset($data['rates']['USDXAU'])) {
+            throw new Exception('Gold rate missing from response');
+        }
+
+        return $data['rates']['USDXAU'] / 31.1034768;
+    });
+}
 
 
     private function getPricedProducts(): array

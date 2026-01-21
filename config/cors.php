@@ -6,7 +6,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://localhost:5173', 'https://renart-case-study-react.vercel.app'],
+    'allowed_origins' => ['http://localhost:5173', 'https://renart-cs.beytullahp.com'],
 
     'allowed_origins_patterns' => [],
 
