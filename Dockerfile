@@ -8,7 +8,6 @@ RUN apt-get update \
         libcurl4-openssl-dev \
         libicu-dev \
         libonig-dev \
-        libpq-dev \
         libzip-dev \
         unzip \
     && docker-php-ext-install \
@@ -16,7 +15,6 @@ RUN apt-get update \
         curl \
         intl \
         mbstring \
-        pdo_pgsql \
         zip \
     && rm -rf /var/lib/apt/lists/*
 
@@ -48,7 +46,6 @@ RUN apt-get update \
         libcurl4-openssl-dev \
         libicu-dev \
         libonig-dev \
-        libpq-dev \
         libzip-dev \
     && docker-php-ext-install \
         bcmath \
@@ -56,7 +53,6 @@ RUN apt-get update \
         intl \
         mbstring \
         opcache \
-        pdo_pgsql \
         zip \
     && rm -rf /var/lib/apt/lists/*
 
@@ -66,7 +62,7 @@ COPY --from=assets /app/public/build ./public/build
 COPY docker/entrypoint.sh /usr/local/bin/renart-backend-entrypoint
 
 RUN chmod +x /usr/local/bin/renart-backend-entrypoint \
-    && mkdir -p storage/app/private storage/app/public storage/framework/cache storage/framework/sessions storage/framework/views bootstrap/cache /usr/local/share/renart \
+    && mkdir -p storage/app/private storage/app/public storage/framework/cache/data storage/framework/sessions storage/framework/views bootstrap/cache /usr/local/share/renart \
     && cp storage/app/private/products.json /usr/local/share/renart/products.json \
     && mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
     && printf "[www]\nclear_env = no\ncatch_workers_output = yes\n" > /usr/local/etc/php-fpm.d/zz-docker-env.conf \
