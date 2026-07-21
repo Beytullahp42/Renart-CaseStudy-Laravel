@@ -1,23 +1,6 @@
 name: ${COMPOSE_PROJECT_NAME:-renart-case-study}
 
 services:
-  database:
-    image: postgres:16-alpine
-    restart: unless-stopped
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB:-renart_case_study}
-      POSTGRES_USER: ${POSTGRES_USER:-renart_user}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-renart_password}
-    ports:
-      - "${POSTGRES_BIND_ADDRESS:-127.0.0.1}:${POSTGRES_PORT:-5432}:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
-      interval: 5s
-      timeout: 5s
-      retries: 20
-
   backend:
     build:
       context: .
@@ -29,36 +12,27 @@ services:
       APP_KEY: ${RENART_APP_KEY:-}
       APP_DEBUG: ${RENART_APP_DEBUG:-false}
       APP_URL: ${RENART_APP_URL:-http://localhost:8000}
+      FRONTEND_URL: ${RENART_FRONTEND_URL:-http://localhost:3000}
       APP_LOCALE: ${RENART_APP_LOCALE:-en}
       APP_FALLBACK_LOCALE: ${RENART_APP_FALLBACK_LOCALE:-en}
       LOG_CHANNEL: ${RENART_LOG_CHANNEL:-stack}
       LOG_STACK: ${RENART_LOG_STACK:-single}
       LOG_LEVEL: ${RENART_LOG_LEVEL:-warning}
-      DB_CONNECTION: pgsql
-      DB_HOST: database
-      DB_PORT: 5432
-      DB_DATABASE: ${POSTGRES_DB:-renart_case_study}
-      DB_USERNAME: ${POSTGRES_USER:-renart_user}
-      DB_PASSWORD: ${POSTGRES_PASSWORD:-renart_password}
-      SESSION_DRIVER: ${RENART_SESSION_DRIVER:-database}
-      CACHE_STORE: ${RENART_CACHE_STORE:-database}
+      DB_CONNECTION: ${RENART_DB_CONNECTION:-sqlite}
+      SESSION_DRIVER: ${RENART_SESSION_DRIVER:-file}
+      CACHE_STORE: ${RENART_CACHE_STORE:-file}
       QUEUE_CONNECTION: ${RENART_QUEUE_CONNECTION:-sync}
       FILESYSTEM_DISK: ${RENART_FILESYSTEM_DISK:-local}
       MAIL_MAILER: ${RENART_MAIL_MAILER:-log}
       GOLD_API_KEY: ${GOLD_API_KEY:-}
       CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost:3000,http://127.0.0.1:3000,http://localhost:8000,http://127.0.0.1:8000}
-      RUN_MIGRATIONS: ${RENART_RUN_MIGRATIONS:-true}
-      RUN_SEEDERS: ${RENART_RUN_SEEDERS:-false}
-      WAIT_FOR_DB: ${RENART_WAIT_FOR_DB:-true}
+      RUN_MIGRATIONS: ${RENART_RUN_MIGRATIONS:-false}
       CACHE_CONFIG: ${RENART_CACHE_CONFIG:-true}
       CACHE_VIEWS: ${RENART_CACHE_VIEWS:-true}
     expose:
       - "9000"
     volumes:
       - backend_storage:/var/www/html/storage
-    depends_on:
-      database:
-        condition: service_healthy
 
   backend-nginx:
     build:
@@ -97,5 +71,4 @@ services:
       retries: 12
 
 volumes:
-  postgres_data:
   backend_storage:

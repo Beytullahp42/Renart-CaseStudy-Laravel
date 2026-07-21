@@ -9,12 +9,14 @@
 </head>
 <body class="bg-light d-flex align-items-center justify-content-center vh-100">
 
+@php($frontendUrl = rtrim(config('app.frontend_url'), '/'))
+
 <div class="text-center">
     <h1 class="fw-bold">Case Study Backend</h1>
     <p class="lead">This is the backend with API endpoints.</p>
     <p class="mt-4 text-muted">
         To check out the <strong>React Frontend</strong>, visit
-        <a href="https://renart-cs.beytullahp.com/" class="link-primary">https://renart-cs.beytullahp.com/</a>
+        <a href="{{ $frontendUrl }}" class="link-primary">{{ $frontendUrl }}</a>
     </p>
 </div>
 
