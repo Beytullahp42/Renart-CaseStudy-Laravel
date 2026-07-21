@@ -34,5 +34,5 @@ This is the backend application for a full-stack web case study built as part of
 ## 🔗 Links
 
 - 📦 **Front End Repository:** https://github.com/Beytullahp42/Renart-CaseStudy-React
-- 🌐 **Live Back End API:** https://renart-cs-laravel.beytullahp.com
-- 🌐 **Live Front End:** https://renart-cs.beytullahp.com
+- 🌐 **Live Back End API:** https://rcs-api.beytullahp.com
+- 🌐 **Live Front End:** https://rcs.beytullahp.com
